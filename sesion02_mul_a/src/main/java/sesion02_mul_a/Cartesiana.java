@@ -13,6 +13,8 @@ public class Cartesiana {
     public Cartesiana(){
         
     }
+    
+    //POLAR A CARTESIANA
     public Cartesiana polar_cartesiano(float radio, float angulo){
         float x = radio*(float)Math.cos(angulo);
         float y= radio*(float)Math.sin(angulo);
@@ -20,20 +22,36 @@ public class Cartesiana {
     }
    
     public Cartesiana polar_cartesiano(Polar p){
-        System.out.println("Lac coordenada polar es: " + p);
-        return new Cartesiana();  //  ****
+        return polar_cartesiano(p.getRadio()*(float)Math.cos(p.getAngulo()),p.getRadio()*(float)Math.sin(p.getAngulo())); 
     }
     
-    
+    //CARTESIANA A POLAR
     public Polar cartesiano_polar(float x, float y){
         float radio = (float)Math.sqrt(Math.pow(x,2)+ Math.pow(y, 2));
         float angulo= (float)Math.atan(y/x);  
         return new Polar(radio,angulo);
     }
     public Polar cartesiano_polar(Cartesiana c){
-        System.out.println("Lac cartesiana polar es: " + c);
-        return new Polar();       //  ****
+        return cartesiano_polar(c.getX(),c.getY());       
     }
+    // CILINDRICA A ESFERICA
+    public Esferica cilindrica_esferica (float r, float angulo, float z){
+        float radio=(float)Math.sqrt(Math.pow(r, 2)+Math.pow(z, 2));
+        float angulo_polar= (float)Math.atan(r/z);
+        float angulo2= angulo;
+        return new Esferica(radio,angulo,angulo2);
+    }
+    
+    //ESFERICA A CILINDRICA
+    public Cilindrica esferica_cilindrica (float p, float angulo_polar, float angulo2){
+        float r = p * (float) Math.sin(angulo_polar);
+        float angulo = angulo2;
+        float z = p *(float) Math.cos(angulo_polar);
+        return new Cilindrica(r,angulo,z);
+    }
+    
+    
+    
     
     
     public float getY(){
